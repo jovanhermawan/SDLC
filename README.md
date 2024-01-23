@@ -1,5 +1,15 @@
 # Web Application Firewall Challenge
 
+## Quickstart
+
+```bash
+# Backend
+flask --app attackdetector run
+
+# Frontend
+streamlit run waf_ui.py
+```
+
 ## Team Specifications:
 
 All teams are required to create a Secure design Specifications Document covering Requirements and threat models.
