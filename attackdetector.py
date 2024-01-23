@@ -27,7 +27,7 @@ def is_lfi_attack(file_path):
     # Check for directory traversal patterns
     lfi_patterns = [
         r'\.\.',
-        r'%2e%2esdf',  # URL-encoded '..'
+        r'%2e%2e',  # URL-encoded '..'
         r'%252e%252e',  # Double URL-encoded '..'
         r'%c0%ae',  # URL-encoded '..' (UTF-8)
         r'%c1%1c',  # URL-encoded '..' (UTF-16)
