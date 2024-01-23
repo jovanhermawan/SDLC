@@ -3,9 +3,18 @@ from flask import Flask, request, render_template, session, make_response
 import secrets
 import os 
 import logging
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
+
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=["1200 per minute"],
+    storage_uri="memory://",
+)
 
 def is_buffer_overflow(user_input):
     if len(user_input) > 100:
@@ -126,11 +135,11 @@ def index():
     res = make_response('Acc')
     res.set_cookie('CSRF-TOKEN', csrf_token, domain="localhost")
     session['csrf_token'] = csrf_token
-    print(session)
     return res
     # return render_template('index.html', csrf_token=csrf_token)
 
 @app.route('/process_data', methods=['POST'])
+@limiter.limit("1/second", override_defaults=False)
 def process_data():
     # Get the CSRF token from the request
     user_input = request.form.get('data')
