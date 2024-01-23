@@ -31,7 +31,11 @@ Construct a WAF designed to identify and filter malicious requests, such as:
 - Developfunctionalitycapableofprocessingvarious data types, including strings, JSON, XML, JPG, and others while limiting the size and avoiding malicious Files.
 - Implementawhitelistfeatureforverifieduser interfaces (IPs of UIs for example or session management).
 
-## Tools
+## Technologies and tools
 
-- Flask (Backend)
-- Streamlit (UI)
+
+1.	User interface
+-	Libraries used: Python (Streamlit framework)
+
+2.	BackendAPI
+-   Libraries used= flask, requests, flask-limiter
