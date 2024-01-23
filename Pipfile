@@ -7,6 +7,7 @@ name = "pypi"
 flask = "*"
 streamlit = "*"
 requests = "*"
+flask-limiter = "*"
 
 [dev-packages]
 
