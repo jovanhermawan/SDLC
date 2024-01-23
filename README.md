@@ -43,4 +43,4 @@ Construct a WAF designed to identify and filter malicious requests, such as:
 - Buffer overflow
 - Determine their origin (IP, Geolocation) for subsequent IP blocking.
 - Developfunctionalitycapableofprocessingvarious data types, including strings, JSON, XML, JPG, and others while limiting the size and avoiding malicious Files.
-- Implementawhitelistfeatureforverifieduser interfaces (IPs of UIs for example or session management).
+- Implement a white list feature for verifieduser interfaces (IPs of UIs for example or session management).
