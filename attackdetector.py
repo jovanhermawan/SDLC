@@ -1,7 +1,8 @@
 import re
-from flask import Flask, request, render_template, session
+from flask import Flask, request, render_template, session, make_response
 import secrets
 import os 
+import logging
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
@@ -49,8 +50,8 @@ def is_malicious_request(user_input, request_token):
         return "SQL_Injection"
     if is_xss_attack(user_input):
         return "XSS_Attack"
-    if validate_csrf_token(request_token):
-        return "CSRF_Attack"
+    # if validate_csrf_token(request_token):
+    #     return "CSRF_Attack"
     if detect_unauthorized_remote_access():
         return "Unauthorized_Remote_Access"
     if is_lfi_attack(user_input):
@@ -122,13 +123,19 @@ def is_xss_attack(user_input):
 def index():
     # Generate CSRF token and render the template
     csrf_token = generate_csrf_token()
-    return render_template('index.html', csrf_token=csrf_token)
+    res = make_response('Acc')
+    res.set_cookie('CSRF-TOKEN', csrf_token, domain="localhost")
+    session['csrf_token'] = csrf_token
+    print(session)
+    return res
+    # return render_template('index.html', csrf_token=csrf_token)
 
 @app.route('/process_data', methods=['POST'])
 def process_data():
     # Get the CSRF token from the request
     user_input = request.form.get('data')
     request_csrf_token = request.form.get('csrf_token')
+    print(request_csrf_token)
     try:
         result = is_malicious_request(user_input,request_csrf_token)
         if result:
